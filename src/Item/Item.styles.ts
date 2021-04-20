@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   height: 100%auto;
 
   button {
-    border-radius: 00 20px 20px;
+    border-radius: 0 0 20px 20px;
   }
 
   img {
