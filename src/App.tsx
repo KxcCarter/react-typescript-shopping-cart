@@ -7,6 +7,7 @@ import Item from './Item/Item';
 import Cart from './Cart/Cart';
 // Styles
 import { Wrapper, StyledButton } from './App.styles';
+import { access } from 'node:fs';
 // Types
 
 export type CartItemType = {
@@ -46,12 +47,25 @@ const App = () => {
             : item
         );
       }
+
       // For first time item is added
       return [...prev, { ...clickedItem, amount: 1 }];
     });
+    console.log(cartItems);
   };
 
-  const handleRemoveFromCart = () => null;
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems((prev) =>
+      prev.reduce((acc, item) => {
+        if (item.id === id) {
+          if (item.amount === 1) return acc;
+          return [...acc, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as CartItemType[])
+    );
+  };
 
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Oh no something went wrong!</div>;
