@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+// Components
+import { Drawer, LinearProgress, Grid, Badge } from '@material-ui/core';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+// Styles
+import { Wrapper } from './App.styles';
+// Types
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+export type CartItemType = {
+  id: number;
+  category: string;
+  description: string;
+  image: string;
+  price: number;
+  title: string;
+  amount: number;
+};
+
+const getProducts = async (): Promise<CartItemType[]> => {
+  return await (await fetch('https://fakestoreapi.com/products')).json();
+};
+
+const App = () => {
+  const { data, isLoading, error } = useQuery<CartItemType[]>(
+    'products',
+    getProducts
   );
-}
+  return <div className="App">Yo dawg we be coding</div>;
+};
 
 export default App;
