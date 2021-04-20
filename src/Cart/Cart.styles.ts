@@ -7,6 +7,6 @@ export const Wrapper = styled.aside`
   padding: 20px;
 
   @media screen and (max-width: 400px) {
-    width: 200px;
+    width: 275px;
   }
 `;
